@@ -20,15 +20,25 @@ function App() {
     const post = { titulo, url: imgSrc, descripcion };
     await axios.post(urlBaseServer + "/posts", post);
     getPosts();
+
+    // LIMPIAR FORMULARIO
+    setTitulo("");
+    setImgSRC("");
+    setDescripcion("");
   };
 
-  // este método se utilizará en el siguiente desafío
-  const like = async (id) => {
-    await axios.put(urlBaseServer + `/posts/like/${id}`);
+  // MÉTODO LIKE
+  const like = async (id, likes) => {
+    const newLikes = likes + 1;
+
+    await axios.put(urlBaseServer + `/posts/like/${id}`, {
+      likes: newLikes,
+    });
+
     getPosts();
   };
 
-  // este método se utilizará en el siguiente desafío
+  // ELIMINAR POST
   const eliminarPost = async (id) => {
     await axios.delete(urlBaseServer + `/posts/${id}`);
     getPosts();
@@ -41,15 +51,23 @@ function App() {
   return (
     <div className="App">
       <h2 className="py-5 text-center">&#128248; Like Me &#128248;</h2>
+
       <div className="row m-auto px-5">
         <div className="col-12 col-sm-4">
+
+          {/* 👇 AGREGADO: ahora Form recibe los valores */}
           <Form
+            titulo={titulo}
+            imgSrc={imgSrc}
+            descripcion={descripcion}
             setTitulo={setTitulo}
             setImgSRC={setImgSRC}
             setDescripcion={setDescripcion}
             agregarPost={agregarPost}
           />
+
         </div>
+
         <div className="col-12 col-sm-8 px-5 row posts align-items-start">
           {posts.map((post, i) => (
             <Post
