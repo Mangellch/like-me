@@ -55,7 +55,6 @@ function App() {
       <div className="row m-auto px-5">
         <div className="col-12 col-sm-4">
 
-          {/* 👇 AGREGADO: ahora Form recibe los valores */}
           <Form
             titulo={titulo}
             imgSrc={imgSrc}
